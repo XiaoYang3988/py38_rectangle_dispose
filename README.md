@@ -10,13 +10,6 @@
 #### main
 
 ```javascript
-# coding = UTF-8
-import file_data_processing as fdp
-import pixel_graphics as pg
-
-import math
-import time
-
 def main():
     time_start = time.time()
 
@@ -26,7 +19,6 @@ def main():
     rectangle = pg.string_turn_rectangle_list(t, " ")
     # 过滤面积等于0的数据
     rectangle = list(x for x in rectangle if math.isclose(0.0, x.area, abs_tol = 1e-6) == False)
-    
     
     # rectangle_describe_list 的数据格式
     rectangle_describe_list = list({'rectangle':x, 'describe_list':list(), } for x in rectangle)
@@ -54,11 +46,9 @@ def main():
     modify_describe = list(y for x in result if len(x['describe_list']) != 0 for y in x['describe_list'])
     time_end = time.time()
     print('总共的时间为:', round(time_end - time_start, 0),'s')
-    # matplotlib绘制
     pg.matplotlib_draw(modify_rectangle, modify_describe)
 
-
-    
-if __name__ == '__main__':
-    main()
+    # tuple turn dict
+    dict_result = list({'rectangle': pg.rectangle_data_turn_dict(x['rectangle']), 'describe_list':list(pg.rectangle_data_turn_dict(y) for y in x['describe_list'])} for x in result)
+    fdp.save_data_text('result_data.txt', 'UTF-8', json.dumps(dict_result))
 ```
