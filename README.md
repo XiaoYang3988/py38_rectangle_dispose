@@ -52,3 +52,6 @@ def main():
     dict_result = list({'rectangle': pg.rectangle_data_turn_dict(x['rectangle']), 'describe_list':list(pg.rectangle_data_turn_dict(y) for y in x['describe_list'])} for x in result)
     fdp.save_data_text('result_data.txt', 'UTF-8', json.dumps(dict_result))
 ```
+
+#### result_data.txt
+可命名元组转json数据，result_data.txt是输出文本文件
